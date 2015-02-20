@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="JSGameJamHH2015">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <script>
+  (function(win) {
+    var game = {};
+    game.canvas = null;
+    game.ctx = null;
+    var body = null;
+    var stack = [];
+    //this is a class
+    var StackObject = function () {
+    
+    };
+    
+    game.interpreter = function() {
+      //loop
+      for(var i = 0; i < stack.length; i++) {
+        if (stack[i] != null) {
+          //do somethig like call the opcode
+        }
+      }
+    };
+    game.updateLoop = function() {
+      game.interpreter();
+      game.draw();
+    };
+    game.draw = function() {
+      //draw the canvas here
+    };
+    game.init = function() {
+      canvas = document.createElement('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.width = window.innerWidth+'px';
+      canvas.style.height = window.innerHeight+'px';
+      ctx = canvas.getContext('2d');
+      body = document.body;
+      body.style.overflow = 'hidden';
+      body.style.margin = 0;
+      body.style.background = '#f0f';
+      body.appendChild(canvas);
+//need two text areas and help/docu
+      
+      requestAnimationFrame(function() {game.updateLoop();});
+    };
+
+
+    ////// export
+    win.game = game;
+    win.onload = function() {setTimeout(game.init, 100)};
+  })(window);
+  </script>
+ </body>
+</html>
