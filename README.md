@@ -11,6 +11,8 @@ February 2015
 
 We have got a 1 dimensional ring buffer (RAM).
 
+![](https://raw.githubusercontent.com/maltekosian/gameoflives/master/docs/idea.jpg)
+
 There are two cores. Both cores operate on this RAM.
 
 Each player operates one of this cores. He/she writes an own program.
@@ -18,6 +20,7 @@ Each player operates one of this cores. He/she writes an own program.
 The goal is to eliminate the other player's program.
 
 ## Components
+![](https://raw.githubusercontent.com/maltekosian/gameoflives/master/docs/components.jpg)
 
 * RAM (Array of Operations)
 * Input (two text areas)
