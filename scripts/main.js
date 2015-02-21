@@ -25,23 +25,29 @@
   }];
 
   game.activity = {
-    cycles : 0,
-    playerInGame: {},
-    stop: true,
-    start: false // TODO: change this if the play button is there
+    ticks : 0,
+    playersInGame: {},
+    stop: false, //because game is not over
+    pause: false,
+    start: false
   };
 
   game.start = function () {
-    game.activity.stop = false;
-    game.activity.start = true;
+
+      game.activity.start = true;
+
   };
 
   game.pause = function () {
-    game.activity.start = false;
+    if (!game.activity.pause) {
+      game.activity.pause = true;
+    } else {
+      game.activity.pause = false;
+    }
   };
 
   game.stop = function () {
-    game.activity.cycles = 0;
+    game.activity.ticks = 0;
     game.activity.stop = true;
     game.activity.start = false;
   };
@@ -59,8 +65,12 @@
     });
   };
 
-  game.addStack = function (playerId, operation, args) {
-    game.stack.push(new StackObject(playerId, operation, args));
+  game.addProgramToStack = function (user, program) {
+    var newPosition = program.length + Math.floor(Math.random() * (game.stack.length - program.length));
+    for(var i = 0; i < program.length; i++) {
+      game.stack[newPosition + i] = new StackObject(user, program[i].operation, program[i].args);
+    }
+    //game.stack.push(new StackObject(playerId, operation, args));
   };
 
 	//this is a constructor function
@@ -108,11 +118,7 @@
 		if (game.update) {
 			game.draw();
 		} else {
-      if (!game.activity.stop && game.activity.start) {
-        if ( game.foo === 'bar' ) {
-          // console.log(game.stack);
-          game.foo = 'foo';
-        }
+      if (!game.activity.stop && game.activity.start && !game.activity.pause) {
         for (var i in game.cores) {
           if (typeof game.cores[i].pointer !== 'undefined') {
             if (game.stack[game.cores[i].pointer].core == i) {
@@ -124,6 +130,8 @@
             }
           }
         }
+        game.activity.ticks++;
+        console.log(game.activity);
       }
 		}
 		game.update = !game.update;
@@ -181,7 +189,6 @@
 		game.canvas = canvas;
 		body.style.overflow = 'hidden';
 		body.style.margin = 0;
-		body.style.background = '#fff';
 		body.appendChild(game.canvas);
 		//need two text areas and help/docu
 		game.sizeX = 10;
@@ -190,13 +197,6 @@
 		for (var i = 0; i < (game.sizeX * game.sizeY); i++) {
 			game.stack.push(new StackObject(0, 'NOOP'));
 		}
-
-    game.stack[15] = new  StackObject(1, 'MOV', [4, 3]);
-    game.stack[16] = new StackObject(1, 'NOP');
-    game.stack[17] = new  StackObject(1, 'NOP');
-    game.stack[18] = new  StackObject(1, 'NOP');
-    game.stack[20] = new  StackObject(2, 'MOV', [+2, 1]);
-
 
     requestAnimationFrame(function () {
 			game.updateLoop();

@@ -12,9 +12,9 @@
 
   function toggleGame() {
     var contents;
-    this.textContent = !game.activity.start ? PAUSE : PLAY;
+    this.textContent = !game.activity.pause ? PAUSE : PLAY;
     this.classList[!game.activity.start ? 'add' : 'remove']('is-playing');
-    if ( game.activity.start ) {
+    if (game.activity.start ) {
       game.pause();
       return;
     }
@@ -29,9 +29,7 @@
       game.addCore({
         id: playerId
       });
-      program.forEach(function (line) {
-        game.addStack(playerId, line.operation, line.args);
-      });
+      game.addProgramToStack(playerId, program);
     });
     game.start();
   }
