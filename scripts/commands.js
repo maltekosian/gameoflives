@@ -20,10 +20,17 @@
     }
     contents = [];
     forEach(doc.querySelectorAll('.js-commands'), function (txt) {
-      var program = game.parser(txt.value.trim());
+      var program = game.parser(txt.value.trim()),
+          playerId = parseInt(txt.id.replace(/\D+/g, ''), 10);
       contents.push({
-        player: txt.id.replace(/\D+/g, ''),
+        player: playerId,
         core: program
+      });
+      game.addCore({
+        id: playerId
+      });
+      program.forEach(function (line) {
+        game.addStack(playerId, line.operation, line.args);
       });
     });
     game.start();

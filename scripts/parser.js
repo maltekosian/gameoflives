@@ -9,7 +9,7 @@
   function _parse(str) {
     var lines = str.split(/\r?\n/g);
     return lines.map(function (item, i) {
-      var tmp = item.split(/\s+?/g),
+      var tmp = item.trim().split(/\s+?/g),
           op = tmp[0].toUpperCase(),
           error = null;
       if ( VALID_OPERATIONS.indexOf(op) === -1 ) {
@@ -20,7 +20,9 @@
       }
       return {
         operation: op,
-        args: tmp.slice(1),
+        args: tmp.slice(1).map(function (num) {
+          return parseInt(num, 10);
+        }),
         error: error
       };
     });
