@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/maltekosian/gameoflives/issues"
   },
-  "homepage": "https://github.com/maltekosian/gameoflives"
+  "homepage": "https://github.com/maltekosian/gameoflives",
+  "dependencies": {
+    "normalize.scss": "^0.1.0"
+  },
+  "devDependencies": {
+    "node-sass": "^2.0.1"
+  }
 }
