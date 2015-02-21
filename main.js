@@ -4,6 +4,9 @@
 	game.ctx = null;
 	var body = null;
 	game.stack = [];
+  game.const = {};
+  game.const.NEW_PLAYER_EVENT = 'newPlayer';
+  game.const.GAME_RESET_EVENT = 'gameReset';
   // cores players
   game.cores = [
     {

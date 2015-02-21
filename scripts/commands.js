@@ -37,6 +37,7 @@
       toggleGame.call(playBtn);
     }
     game.activity.stop = true;
+    PubSub.publish(game.const.GAME_RESET_EVENT);
   }
 
   playBtn.addEventListener('click', toggleGame, false);

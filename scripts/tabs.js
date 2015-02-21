@@ -4,7 +4,6 @@
   'use strict';
 
   var CURRENT_CLASS = 'is-current';
-  var NEW_PLAYER_EVENT = 'newPlayer';
 
   var forEach = Array.prototype.forEach.call.bind(Array.prototype.forEach);
 
@@ -43,7 +42,7 @@
       data-error-msg="error-player-' + newCount + '"></textarea>\
       <small class="error-msg" id="error-player-' + newCount + '"></small>';
     tabsContent.appendChild(pane);
-    PubSub.publish(NEW_PLAYER_EVENT, newCount);
+    PubSub.publish(game.const.NEW_PLAYER_EVENT, newCount);
   }
 
   function lintInput(evnt) {

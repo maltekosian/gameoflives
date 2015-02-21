@@ -4,9 +4,8 @@
   'use strict';
 
   var DEFAULT = '\u2013';
-  var NEW_PLAYER_EVENT = 'newPlayer';
 
-  var loopCounter = doc.getElementById('loop-counter'),
+  var loopCounter = doc.getElementById('loops-counter'),
       players = doc.querySelectorAll('.js-player-count');
 
   function addNewPlayer(evnt, count) {
@@ -18,6 +17,14 @@
     last.parentNode.appendChild(newPlayer);
   }
 
-  PubSub.subscribe(NEW_PLAYER_EVENT, addNewPlayer);
+  // Reset Cycle-count & Player score
+  function resetMeta() {
+    [loopCounter].concat([].slice.call(players)).forEach(function (elem) {
+      elem.textContent = DEFAULT;
+    });
+  }
+
+  PubSub.subscribe(game.const.NEW_PLAYER_EVENT, addNewPlayer);
+  PubSub.subscribe(game.const.GAME_RESET_EVENT, resetMeta);
 
 })(game, window, document);
