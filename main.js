@@ -4,10 +4,12 @@
 	game.ctx = null;
 	var body = null;
 	game.stack = [];
-	//this is a class
-	var StackObject = function () {
-		this.ops = null;
-		this.args = [];
+
+	//this is a constructor function
+	var StackObject = function (core, operation, arguments) {
+		this.ops = operation || null;
+		this.args = arguments || [];
+		this.core = core || 0;
 	};
 
 
@@ -92,9 +94,10 @@
 		//need two text areas and help/docu
 		game.sizeX = 10;
 		game.sizeY = 10;
+
 		for (var i = 0; i < (game.sizeX * game.sizeY); i++) {
 			//
-			game.stack.push(new StackObject());
+			game.stack.push(new StackObject(0, 'MOV', ['hello', 'world']));
 		}
 		requestAnimationFrame(function () {
 			game.updateLoop();

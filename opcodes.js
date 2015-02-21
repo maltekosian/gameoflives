@@ -5,7 +5,9 @@
 	}
 
 	game.opcodes = {
-		'MOV': function () {
+		'MOV': function (stack, counter) {
+			console.log(stack);
+			console.log(stack[counter]);
 		},
 		'PUSH': function () {
 		}
