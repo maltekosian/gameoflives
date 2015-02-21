@@ -14,15 +14,23 @@
       var newPosition = counter + args[0];
       if (newPosition < 0) {
         newPosition = this.length + newPosition;
-      } else if (newPosition > this.length) {
+      } else if (newPosition >= this.length) {
         newPosition = newPosition - this.length;
       }
       this[newPosition] = this[counter];
       this[counter] = new StackObject(0, 'NOOP');
-
-
 		},
-		'PUSH': function () {
+    'COPY': function (counter, args) {
+      // one argument, positive or negative steps, positive right, negative left
+      var newPosition = counter + args[0];
+      if (newPosition < 0) {
+        newPosition = this.length + newPosition;
+      } else if (newPosition >= this.length) {
+        newPosition = newPosition - this.length;
+      }
+      this[newPosition] = this[counter];
+    },
+		'JUMP': function () {
 		}
 	};
   console.debug(window.game);

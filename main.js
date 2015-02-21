@@ -5,13 +5,24 @@
 	var body = null;
 	game.stack = [];
   // cores players
-  game.cores = [{
-    'player': 1,
+  game.cores = [
+    {
+    'player': 'quartz'
+    },
+    {
+    'player': 'Core 1',
     'color': 'red'
-  }, {
-    'player': 2,
+    }, {
+    'player': 'Core 2',
     'color': 'green'
   }];
+
+  game.activity = {
+    cycles : 0,
+    playerInGame: {},
+    stop: false,
+    start: true // TODO: change this if the play button is there
+  };
 
 	//this is a constructor function
 	var StackObject = function (core, operation, arguments) {
@@ -27,17 +38,28 @@
 
 	game.interpreter = function () {
 		//loop
-		//for(var i = 0; i < game.stack.length; i++) {
 		var i = game.stackCounter;
-		if (game.stack[i] != null) {
-			//do somethig like call the opcode
-			try {
-        var command = game.stack[i].ops;
-        game.opcodes[command].call(game.stack, i, game.stack[i].args);
-			}
-			catch (ex) {
-			}
-		}
+    //do somethig like call the opcode
+    try {
+      var command = game.stack[i].ops;
+      game.opcodes[command].call(game.stack, i, game.stack[i].args);
+    }
+    catch (ex) {
+      console.error(ex);
+    }
+    game.activity.playersInGame = {};
+    for (i = 0; i < game.stack.length; i++) {
+      var core = game.stack[i].core;
+      if (core > 0) {
+        if (typeof game.activity.playersInGame [core] === 'undefined') {
+          game.activity.playersInGame [core] = 0;
+        }
+        game.activity.playersInGame [core]++;
+      }
+    }
+    if (Object.getOwnPropertyNames(game.activity.playersInGame).length <= 1) {
+      game.activity.stop = true;
+    }
 		game.stackCounter++;
 		if (game.stackCounter >= game.stack.length) {
 			game.stackCounter = 0;
@@ -49,7 +71,9 @@
 		if (game.update) {
 			game.draw();
 		} else {
-			game.interpreter();
+      if (!game.activity.stop && game.activity.start) {
+			  game.interpreter();
+      }
 		}
 		game.update = !game.update;
 		//this is 30 of possible 60 fps
@@ -62,20 +86,29 @@
 		//draw the canvas here
     var ctx = game.ctx;
 		var cw = game.canvas.height / 12;
+    ctx.lineWidth = 1;
 		var fts = cw / 4;
 		var elem = null;
 		for (var j = 0; j < game.sizeY; j++) {
 			for (var i = 0; i < game.sizeX; i++) {
 				elem = game.stack[j * game.sizeX + i];
-				ctx.strokeStyle = '#000';
-				ctx.fillStyle = '#999';
-				if (j * game.sizeX + i == game.stackCounter) {
+
+        ctx.fillStyle = '#999';
+        ctx.strokeStyle = '#000';
+				if (elem.core > 0) {
+          ctx.fillStyle = game.cores[elem.core].color;
+        }
+        ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+        ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+
+        if (j * game.sizeX + i == game.stackCounter) {
 					//
-					ctx.strokeStyle = '#fd9';
-					ctx.fillStyle = 'yellow';
-				}
-				ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
-				ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+					ctx.strokeStyle = '#f9o';
+					ctx.fillStyle = 'rgba(255,255,0,0.5)';
+          ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+          ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+
+        }
 				ctx.fillStyle = '#000';
 				game.ctx.fillText(elem.ops, 3+(cw / 12 + cw) * i, 3+fts/2+(cw / 12 + cw) * j);
 				for (var k = 0; k < elem.args.length; k++) {
@@ -107,7 +140,9 @@
 		}
 
     game.stack[17] = new  StackObject(1, 'MOV', [-5]);
-		requestAnimationFrame(function () {
+    game.stack[18] = new  StackObject(2, 'COPY', [+2]);
+
+    requestAnimationFrame(function () {
 			game.updateLoop();
 		});
 	};
