@@ -197,6 +197,7 @@
     game.activity.stop = false;
     game.activity.start = false;
     game.activity.pause = false;
+    game.activity._ticks = 0;
 
     game.cores  = [    {
       'player': 'quartz',
