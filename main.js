@@ -4,6 +4,14 @@
 	game.ctx = null;
 	var body = null;
 	game.stack = [];
+  // cores players
+  game.cores = [{
+    'player': 1,
+    'color': 'red'
+  }, {
+    'player': 2,
+    'color': 'green'
+  }];
 
 	//this is a constructor function
 	var StackObject = function (core, operation, arguments) {
@@ -24,10 +32,8 @@
 		if (game.stack[i] != null) {
 			//do somethig like call the opcode
 			try {
-				game.stack[i].ops.call(game.stack, i);
-				// Bgame[game.stack[i].ops](game.stack[i].args);
-				//or
-				//game.callOpCode(game.stack[i].ops, game.stack[i].args);
+        var command = game.stack[i].ops;
+        game.opcodes[command].call(game.stack, i, game.stack[i].args);
 			}
 			catch (ex) {
 			}
@@ -66,7 +72,7 @@
 				if (j * game.sizeX + i == game.stackCounter) {
 					//
 					ctx.strokeStyle = '#fd9';
-					ctx.fillStyle = '#6d9';
+					ctx.fillStyle = 'yellow';
 				}
 				ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 				ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
@@ -97,8 +103,10 @@
 
 		for (var i = 0; i < (game.sizeX * game.sizeY); i++) {
 			//
-			game.stack.push(new StackObject(0, 'MOV', ['hello', 'world']));
+			game.stack.push(new StackObject(0, 'NOOP'));
 		}
+
+    game.stack[17] = new  StackObject(1, 'MOV', [-5]);
 		requestAnimationFrame(function () {
 			game.updateLoop();
 		});
@@ -110,4 +118,5 @@
 	win.onload = function () {
 		setTimeout(game.init, 100)
 	};
+  win.StackObject = StackObject;
 })(window);
