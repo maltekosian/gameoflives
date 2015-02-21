@@ -37,6 +37,7 @@
   };
 
   game.stop = function () {
+    game.activity.cycles = 0;
     game.activity.stop = true;
     game.activity.start = false;
   };

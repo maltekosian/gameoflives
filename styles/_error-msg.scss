@@ -1,0 +1,13 @@
+
+.error-msg {
+  margin: rem(5) 0 0 rem(310);
+  display: none;
+  font-size: rem(10);
+  color: $green;
+  white-space: pre;
+
+  &.is-visible {
+    display: block;
+  }
+
+}

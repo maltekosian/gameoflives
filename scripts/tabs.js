@@ -39,9 +39,35 @@
     pane.id = 'player-' + newCount;
     pane.innerHTML = '<textarea id="commands-player-' + newCount + '" \
       class="commands js-commands" \
-      placeholder="Player ' + newCount + ', insert your commands &hellip;"></textarea>';
+      placeholder="Player ' + newCount + ', insert your commands &hellip;" \
+      data-error-msg="error-player-' + newCount + '"></textarea>\
+      <small class="error-msg" id="error-player-' + newCount + '"></small>';
     tabsContent.appendChild(pane);
     PubSub.publish(NEW_PLAYER_EVENT, newCount);
+  }
+
+  function lintInput(evnt) {
+    var val,
+        errors,
+        errorMsg;
+    if ( evnt.target.nodeName.toLowerCase() != 'textarea' || !evnt.target.classList.contains('js-commands') ) {
+      return;
+    }
+    val = evnt.target.value.trim();
+    errors = game.linter(val);
+    errorMsg = doc.getElementById(evnt.target.getAttribute('data-error-msg'));
+    if ( !errors.length || !val.length ) {
+      errorMsg.classList.remove('is-visible');
+      return;
+    }
+    errorMsg.textContent = createErrorMessage(errors);
+    errorMsg.classList.add('is-visible');
+  }
+
+  function createErrorMessage(arr) {
+    return arr.map(function (item) {
+      return 'Line ' + item.line + ': ' + item.msg;
+    }).join("\r\n");
   }
 
   forEach(tabs.querySelectorAll('button[rel]'), function (btn) {
@@ -49,5 +75,6 @@
   }, false);
 
   addNew.addEventListener('click', addNewPlayer, false);
+  tabsContent.addEventListener('keyup', lintInput, false);
 
 })(game, window, document);

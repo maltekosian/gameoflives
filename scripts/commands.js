@@ -8,6 +8,7 @@
 
   var forEach = Array.prototype.forEach.call.bind(Array.prototype.forEach);
   var playBtn = doc.getElementById('play');
+  var resetBtn = doc.getElementById('reset');
 
   function toggleGame() {
     var contents;
@@ -19,15 +20,26 @@
     }
     contents = [];
     forEach(doc.querySelectorAll('.js-commands'), function (txt) {
+      var program = game.parser(txt.value.trim());
       contents.push({
         player: txt.id.replace(/\D+/g, ''),
-        commands: txt.value.trim()
+        core: program
       });
     });
     game.start();
-    console.log(contents);
+  }
+
+  function stopGame() {
+    if ( game.activity.stop ) {
+      return;
+    }
+    if ( game.activity.start ) {
+      toggleGame.call(playBtn);
+    }
+    game.activity.stop = true;
   }
 
   playBtn.addEventListener('click', toggleGame, false);
+  resetBtn.addEventListener('click', stopGame, false);
 
 })(game, window, document);

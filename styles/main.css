@@ -458,8 +458,7 @@ p {
     background-color: #007b00; }
 
 .commands {
-  width: 100%;
-  max-width: 18.75rem;
+  width: 18.75rem;
   position: absolute;
   top: 2.125rem;
   bottom: 0;
@@ -474,3 +473,12 @@ p {
     background-color: white;
     color: #666;
     outline: none; }
+
+.error-msg {
+  margin: 0.3125rem 0 0 19.375rem;
+  display: none;
+  font-size: 0.625rem;
+  color: #009a00;
+  white-space: pre; }
+  .error-msg.is-visible {
+    display: block; }
