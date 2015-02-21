@@ -1,0 +1,38 @@
+
+.tabs {
+  overflow: hidden;
+}
+
+.tabs__nav {
+  height: 2em;
+  white-space: nowrap;
+  border-bottom: 2px solid black;
+}
+
+.tabs__btn {
+  padding: 0 .5em;
+  border: none;
+  background: #666;
+  color: black;
+  line-height: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  @include transition (background-color .2s linear);
+
+  &:hover,
+  &:focus,
+  &.is-current {
+    background-color: #999;
+  }
+
+}
+
+.tabs__pane {
+  display: none;
+
+  &.is-current {
+    display: block;
+  }
+
+}

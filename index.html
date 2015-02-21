@@ -1,12 +1,40 @@
 <!doctype html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="JSGameJamHH2015">
-  <title>Game of Lives</title>
- </head>
- <body>
-  <script src="main.js"></script>
-	<script src="opcodes.js"></script>
- </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Generator" content="JSGameJamHH2015">
+    <title>Game of Lives</title>
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="wrap__top">
+        <div class="game" id="game"></div>
+      </div>
+      <div class="wrap__bottom">
+        <div class="tabs" id="tabs">
+          <div class="tabs__nav">
+            <button type="button" rel="about" class="tabs__btn is-current">About</button>
+            <button type="button" rel="player-1" class="tabs__btn">Player 1</button>
+            <button type="button" rel="player-2" class="tabs__btn">Player 2</button>
+            <button type="button" class="tabs__btn" id="new-player">+</button>
+          </div>
+          <div class="tabs__content">
+            <div id="about" class="tabs__pane is-current">
+              About
+            </div>
+            <div id="player-1" class="tabs__pane">
+              Player 1
+            </div>
+            <div id="player-2" class="tabs__pane">
+              Player 2
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="opcodes.js"></script>
+  </body>
 </html>

@@ -321,14 +321,69 @@ td, th {
   padding: 0; }
 
 html {
-  font-size: 100%;
-  color: black; }
+  font-size: 100%; }
 
 body {
+  height: 100%;
   color: #444;
   background-color: white;
   font: normal 1rem/1.2 sans-serif;
   overflow: hidden; }
 
-.foo {
-  z-index: 1; }
+.wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+.wrap__top, .wrap__bottom {
+  position: absolute;
+  right: 0;
+  left: 0; }
+
+.wrap__top {
+  top: 0;
+  height: 65%;
+  background-color: #222; }
+
+.wrap__bottom {
+  bottom: 0;
+  height: 35%;
+  background-color: black;
+  border: 2px solid black;
+  box-sizing: border-box; }
+
+.game {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+.tabs {
+  overflow: hidden; }
+
+.tabs__nav {
+  height: 2em;
+  white-space: nowrap;
+  border-bottom: 2px solid black; }
+
+.tabs__btn {
+  padding: 0 .5em;
+  border: none;
+  background: #666;
+  color: black;
+  line-height: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color .2s linear;
+  transition: background-color .2s linear; }
+  .tabs__btn:hover, .tabs__btn:focus, .tabs__btn.is-current {
+    background-color: #999; }
+
+.tabs__pane {
+  display: none; }
+  .tabs__pane.is-current {
+    display: block; }

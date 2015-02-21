@@ -1,0 +1,5 @@
+
+@mixin transition ($values: all .2s linear) {
+  -webkit-transition: $values;
+  transition: $values;
+}

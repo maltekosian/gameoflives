@@ -1,4 +1,10 @@
 
 @import "../node_modules/normalize.scss/normalize";
 
-@import "base";
+@import "functions",
+        "mixins";
+
+@import "base",
+        "wrap",
+        "game",
+        "tabs";
