@@ -29,22 +29,12 @@
     game.start();
   }
 
-  function stopGame() {
-    if ( game.activity.stop ) {
-      return;
-    }
-    if ( game.activity.start ) {
-      toggleGame.call(playBtn);
-    }
-    game.activity.stop = true;
-    PubSub.publish(game.const.GAME_RESET_EVENT);
-  }
-
   function initGame() {
     if(!game.activity.pause) {
       toggleGame.call(playBtn);
     }
     game.init();
+    PubSub.publish(game.const.GAME_RESET_EVENT);
   }
 
   playBtn.addEventListener('click', toggleGame, false);
