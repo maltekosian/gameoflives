@@ -10,36 +10,6 @@
 		this.args = [];
 	};
 
-	game.opcodes = [
-		{
-			opcode: '', func: function () {
-		}
-		},
-		{
-			opscode: 'MOV', 'func': function () {
-
-		}
-		}];
-
-//
-	game.opscodes = {
-		'MOV': function () {
-		},
-		'PUSH': function () {
-		}
-	};
-
-	game.opscodes['BLUBB'] = function () {
-		console.log('this is new');
-	};
-
-	game.callOpCode = function (ops, args) {
-		for (var i = 0; i < game.opcodes.length; i++) {
-			if (game.opcodes[i].opcode == ops) {
-				return game.opcodes[i](args);
-			}
-		}
-	};
 
 	game.stackCounter = 0;
 
