@@ -24,7 +24,19 @@
     });
   }
 
+  function updateTicks(evnt, ticks) {
+    loopCounter.textContent = ticks;
+  }
+
+  function updatePlayer(evnt, args) {
+    if ( args.length === 2 ) {
+      document.getElementById('player-count-' + args[0]).textContent = args[1];
+    }
+  }
+
   PubSub.subscribe(game.const.NEW_PLAYER_EVENT, addNewPlayer);
   PubSub.subscribe(game.const.GAME_RESET_EVENT, resetMeta);
+  PubSub.subscribe(game.const.TICKS_UPDATE, updateTicks);
+  PubSub.subscribe(game.const.PLAYER_UPDATE, updatePlayer);
 
 })(game, window, document);

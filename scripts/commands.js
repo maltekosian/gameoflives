@@ -11,21 +11,16 @@
   var resetBtn = doc.getElementById('reset');
 
   function toggleGame() {
-    var contents;
-    this.textContent = !game.activity.pause ? PAUSE : PLAY;
-    this.classList[!game.activity.start ? 'add' : 'remove']('is-playing');
-    if (game.activity.start ) {
+    var isIdle = !game.activity.start || (game.activity.pause && game.activity.start);
+    this.textContent = isIdle ? PAUSE : PLAY;
+    this.classList[isIdle ? 'add' : 'remove']('is-playing');
+    if ( game.activity.start ) {
       game.pause();
       return;
     }
-    contents = [];
     forEach(doc.querySelectorAll('.js-commands'), function (txt) {
       var program = game.parser(txt.value.trim()),
           playerId = parseInt(txt.id.replace(/\D+/g, ''), 10);
-      contents.push({
-        player: playerId,
-        core: program
-      });
       game.addCore({
         id: playerId
       });

@@ -7,6 +7,8 @@
   game.const = {};
   game.const.NEW_PLAYER_EVENT = 'newPlayer';
   game.const.GAME_RESET_EVENT = 'gameReset';
+  game.const.TICKS_UPDATE = 'ticksUpdate';
+  game.const.PLAYER_UPDATE = 'playerUpdate';
   game.const.COLORS = [[], ['red','rgba(255,100,100,0.5)'], ['green','rgba(100,255,100,0.5)'], ['blue','rgba(100,100,255,0.5)'], ['yellow','rgba(255,255,100,0.5)']];
   // cores players
   game.cores = [
@@ -14,7 +16,14 @@
   ];
 
   game.activity = {
-    ticks : 0,
+    _ticks : 0,
+    get ticks () {
+      return this._ticks;
+    },
+    set ticks (val) {
+      PubSub.publish(game.const.TICKS_UPDATE, val);
+      this._ticks = val;
+    },
     playersInGame: {},
     stop: false, //because game is not over
     pause: false,
@@ -93,6 +102,7 @@
           game.activity.playersInGame [cell] = 0;
         }
         game.activity.playersInGame [cell]++;
+        PubSub.publish(game.const.PLAYER_UPDATE, [cell, game.activity.playersInGame[cell]]);
       }
     }
     if (Object.getOwnPropertyNames(game.activity.playersInGame).length <= 1) {
@@ -101,8 +111,6 @@
 
 		//}
 	};
-
-  game.foo = 'bar';
 
 	game.updateLoop = function () {
 		if (game.update) {
@@ -121,7 +129,6 @@
           }
         }
         game.activity.ticks++;
-        console.log(game.activity);
       }
 		}
 		game.update = !game.update;
