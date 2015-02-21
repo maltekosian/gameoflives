@@ -82,6 +82,7 @@
 
 	game.draw = function () {
 		//draw the canvas here
+    var ctx = game.ctx;
 		var cw = canvas.height / 12;
 		var fts = cw / 4;
 		var elem = null;
@@ -98,7 +99,7 @@
 				ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 				ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 				ctx.fillStyle = '#000';
-				ctx.fillText(elem.ops, (3 + cw / 12 + cw) * i, (3 + fts + cw / 12 + cw) * j);
+				game.ctx.fillText(elem.ops, (3 + cw / 12 + cw) * i, (3 + fts + cw / 12 + cw) * j);
 				for (var k = 0; k < 2; k++) {
 					ctx.fillText(elem.args[k], (3 + cw / 12 + cw) * i, ((3 + fts) * (k + 1) + cw / 12 + cw) * j);
 				}
@@ -106,17 +107,18 @@
 		}
 	};
 	game.init = function () {
-		canvas = document.createElement('canvas');
+		var canvas = document.createElement('canvas');
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 		canvas.style.width = window.innerWidth + 'px';
 		canvas.style.height = window.innerHeight + 'px';
-		ctx = canvas.getContext('2d');
-		body = document.body;
+		game.ctx = canvas.getContext('2d');
+		game.canvas = canvas;
+    body = document.body;
 		body.style.overflow = 'hidden';
 		body.style.margin = 0;
 		body.style.background = '#f0f';
-		body.appendChild(canvas);
+		body.appendChild(game.canvas);
 		//need two text areas and help/docu
 		game.sizeX = 10;
 		game.sizeY = 10;
