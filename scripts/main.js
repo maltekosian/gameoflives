@@ -96,15 +96,18 @@
     }
     game.activity.playersInGame = {};
     for (i = 0; i < game.stack.length; i++) {
-      var cell = game.stack[i].core;
-      if (cell > 0) {
-        if (typeof game.activity.playersInGame [cell] === 'undefined') {
-          game.activity.playersInGame [cell] = 0;
+      var player = game.stack[i].core;
+      if (player > 0) {
+        if (typeof game.activity.playersInGame [player] === 'undefined') {
+          game.activity.playersInGame [player] = 0;
         }
-        game.activity.playersInGame [cell]++;
-        PubSub.publish(game.const.PLAYER_UPDATE, [cell, game.activity.playersInGame[cell]]);
+        game.activity.playersInGame [player]++;
       }
     }
+    for (var i = 0; i <= game.cores.length; i++) {
+      PubSub.publish(game.const.PLAYER_UPDATE, [i, game.activity.playersInGame[i] || 0]);
+    }
+
     if (Object.getOwnPropertyNames(game.activity.playersInGame).length <= 1) {
       game.activity.stop = true;
     }
