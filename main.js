@@ -7,14 +7,17 @@
   // cores players
   game.cores = [
     {
-    'player': 'quartz'
+    'player': 'quartz',
+      'color': 'blue'
     },
     {
     'player': 'Core 1',
-    'color': 'red'
+    'color': 'red',
+    'pointer': 0
     }, {
     'player': 'Core 2',
-    'color': 'green'
+    'color': 'green',
+    'pointer': 0
   }];
 
   game.activity = {
@@ -32,27 +35,11 @@
 	};
 
 
-	game.stackCounter = 0;
-
 	game.update = true;
 
-  game.start = function () {
-    game.activity.stop = false;
-    game.activity.start = true;
-  };
-
-  game.pause = function () {
-    game.activity.start = false;
-  };
-
-  game.stop = function () {
-    game.activity.stop = true;
-    game.activity.start = false;
-  };
-
-	game.interpreter = function () {
+	game.interpreter = function (core) {
 		//loop
-		var i = game.stackCounter;
+		var i = core.pointer;
     //do somethig like call the opcode
     try {
       var command = game.stack[i].ops;
@@ -63,20 +50,20 @@
     }
     game.activity.playersInGame = {};
     for (i = 0; i < game.stack.length; i++) {
-      var core = game.stack[i].core;
-      if (core > 0) {
-        if (typeof game.activity.playersInGame [core] === 'undefined') {
-          game.activity.playersInGame [core] = 0;
+      var cell = game.stack[i].core;
+      if (cell > 0) {
+        if (typeof game.activity.playersInGame [cell] === 'undefined') {
+          game.activity.playersInGame [cell] = 0;
         }
-        game.activity.playersInGame [core]++;
+        game.activity.playersInGame [cell]++;
       }
     }
     if (Object.getOwnPropertyNames(game.activity.playersInGame).length <= 1) {
       game.activity.stop = true;
     }
-		game.stackCounter++;
-		if (game.stackCounter >= game.stack.length) {
-			game.stackCounter = 0;
+    core.pointer++;
+		if (core.pointer >= game.stack.length) {
+      core.pointer = 0;
 		}
 		//}
 	};
@@ -86,7 +73,11 @@
 			game.draw();
 		} else {
       if (!game.activity.stop && game.activity.start) {
-			  game.interpreter();
+			  for (var core in game.cores) {
+          if (typeof game.cores[core].pointer !== 'undefined') {
+            game.interpreter(game.cores[core]);
+          }
+        }
       }
 		}
 		game.update = !game.update;
@@ -115,13 +106,15 @@
         ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
         ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 
-        if (j * game.sizeX + i == game.stackCounter) {
-					//
-					ctx.strokeStyle = '#f9o';
-					ctx.fillStyle = 'rgba(255,255,0,0.5)';
-          ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
-          ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
-
+        for (var ci in game.cores) {
+          var core = game.cores[ci];
+          if (j * game.sizeX + i == core.pointer) {
+            //
+            ctx.strokeStyle = '#f9o';
+            ctx.fillStyle = 'rgba(255,255,0,0.5)';
+            ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+            ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
+          }
         }
 				ctx.fillStyle = '#000';
 				game.ctx.fillText(elem.ops, 3+(cw / 12 + cw) * i, 3+fts/2+(cw / 12 + cw) * j);
@@ -153,8 +146,11 @@
 			game.stack.push(new StackObject(0, 'NOOP'));
 		}
 
-    game.stack[17] = new  StackObject(1, 'MOV', [-5]);
-    game.stack[18] = new  StackObject(2, 'COPY', [+2]);
+    game.stack[16] = new  StackObject(1, 'MOV', [-1]);
+    game.stack[17] = new StackObject(1, 'COPY', [-1]);
+    game.stack[18] = new  StackObject(1, 'JUMP', [-4]);
+    game.stack[20] = new  StackObject(2, 'MOV', [+2]);
+
 
     requestAnimationFrame(function () {
 			game.updateLoop();
