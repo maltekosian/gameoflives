@@ -83,7 +83,7 @@
 	game.draw = function () {
 		//draw the canvas here
     var ctx = game.ctx;
-		var cw = canvas.height / 12;
+		var cw = game.canvas.height / 12;
 		var fts = cw / 4;
 		var elem = null;
 		for (var j = 0; j < game.sizeY; j++) {
@@ -99,9 +99,9 @@
 				ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 				ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
 				ctx.fillStyle = '#000';
-				game.ctx.fillText(elem.ops, (3 + cw / 12 + cw) * i, (3 + fts + cw / 12 + cw) * j);
-				for (var k = 0; k < 2; k++) {
-					ctx.fillText(elem.args[k], (3 + cw / 12 + cw) * i, ((3 + fts) * (k + 1) + cw / 12 + cw) * j);
+				game.ctx.fillText(elem.ops, 3+(cw / 12 + cw) * i, 3+fts/2+(cw / 12 + cw) * j);
+				for (var k = 0; k < elem.args.length; k++) {
+					ctx.fillText(elem.args[k], 3+(cw / 12 + cw) * i, fts/2 + (3 + fts) * (k + 1) + (cw / 12 + cw) * j);
 				}
 			}
 		}
