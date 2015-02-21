@@ -104,7 +104,7 @@
         game.activity.playersInGame [player]++;
       }
     }
-    for (var i = 0; i <= game.cores.length; i++) {
+    for (var i = 1; i <= game.cores.length; i++) {
       PubSub.publish(game.const.PLAYER_UPDATE, [i, game.activity.playersInGame[i] || 0]);
     }
 
