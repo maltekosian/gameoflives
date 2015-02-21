@@ -15,14 +15,29 @@
     game.canvas = null;
     game.ctx = null;
     var body = null;
+    /**
+    the collection of StackOjects
+    which are initialized in game.init
+    @property stack
+    @type array
+    */
     game.stack = [];
-    //this is a class
+    /**
+    this is a class
+    
+    */
     var StackObject = function () {
+      /**
+      the name of the opcode
+      */
       this.ops = null;
+      /**
+      arguments for the method call
+      */
       this.args = [];
     };
 
-    game.opcodes = [{opcode: '', func: function() {}} ];
+    game.opcodes = [{opcode: '', func: function() {}, code: ''} ];
     
     game.callOpCode = function(ops, args) {
       for (var i = 0; i < game.opcodes.length; i++) {
