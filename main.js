@@ -79,17 +79,17 @@
 		}
 	};
 	game.init = function () {
-		var canvas = document.createElement('canvas');
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
-		canvas.style.width = window.innerWidth + 'px';
-		canvas.style.height = window.innerHeight + 'px';
+		body = document.getElementById('game');
+    var canvas = document.createElement('canvas');
+		canvas.width = body.offsetWidth;
+		canvas.height = body.offsetHeight;
+		canvas.style.width = body.offsetWidth + 'px';
+		canvas.style.height = body.offsetHeight + 'px';
 		game.ctx = canvas.getContext('2d');
 		game.canvas = canvas;
-    body = document.body;
 		body.style.overflow = 'hidden';
 		body.style.margin = 0;
-		body.style.background = '#f0f';
+		body.style.background = '#fff';
 		body.appendChild(game.canvas);
 		//need two text areas and help/docu
 		game.sizeX = 10;
