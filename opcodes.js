@@ -16,28 +16,38 @@
   }
 
   window.game.opcodes = {
-		'NOOP': function(counter) {
+		'NOOP': {
+      'func': function(counter) {
       // NOOP;
+      },
+      pseudo: 'NOOP'
     },
-    'MOV': function (counter, args) {
-      // one argument, positive or negative steps, positive right, negative left
+    'MOV': {
+      func: function (counter, args) {
+        // one argument, positive or negative steps, positive right, negative left
+        var cell = this[counter];
+        var newPosition = counter + args[0];
+        var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
+        this[pos] = this[counter];
+        this[counter] = new StackObject(0, 'NOOP');
+      },
+      pseudo: 'MOV pos cells'
+    },'COPY':{
+      func: function (counter, args) {
       var cell = this[counter];
-      var newPosition = counter + args[0];
-      var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
-      this[pos] = this[counter];
-      this[counter] = new StackObject(0, 'NOOP');
-		},
-    'COPY': function (counter, args) {
-      var cell = this[counter];
-      var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
-      this[pos] = this[counter];
-    },
-		'JUMP': function (counter, args) {
-      var cell = this[counter];
-      var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
-      game.cores[cell.core].pointer = pos;
-		}
-	};
-  console.debug(window.game);
+        var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
+        this[pos] = this[counter];
 
+      },
+      pseudo: 'COPY pos cells'
+    },
+		'JUMP': {
+      func: function (counter, args) {
+        var cell = this[counter];
+        var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
+        game.cores[cell.core].pointer = pos;
+      },
+      pseudo: 'JUMP pos'
+    }
+};
 })();

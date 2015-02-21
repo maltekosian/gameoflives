@@ -57,7 +57,7 @@
     //do somethig like call the opcode
     try {
       var command = game.stack[i].ops;
-      game.opcodes[command].call(game.stack, i, game.stack[i].args);
+      game.opcodes[command].func.call(game.stack, i, game.stack[i].args);
     }
     catch (ex) {
       console.error(ex);
