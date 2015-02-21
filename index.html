@@ -83,17 +83,18 @@
       //this is 30 of possible 60 fps
       requestAnimationFrame( function() {game.updateLoop();} );
     };
+
     game.draw = function() {
       //draw the canvas here
       var cw = canvas.height / 12;
       var fts = cw / 4;
       var elem = null;
-      for (var i = 0; i < game.sizeX; i++) {
-        for (var j = 0; j < game.sizeY; j++) {
-          elem = game.stack[i * game.sizeY + j];
+      for (var j = 0; j < game.sizeY; j++) {
+        for (var i = 0; i < game.sizeX; i++) {
+          elem = game.stack[j * game.sizeX + i];
           ctx.strokeStyle = '#000';
           ctx.fillStyle = '#999';
-          if (i * game.sizeY + j == game.stackCounter) {
+          if (j * game.sizeX + i == game.stackCounter) {
             //
             ctx.strokeStyle = '#fd9';
             ctx.fillStyle = '#6d9';
