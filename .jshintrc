@@ -18,6 +18,6 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
-	"$": false
+    "game": true
   }
 }

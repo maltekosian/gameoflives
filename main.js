@@ -27,6 +27,20 @@
     start: false // TODO: change this if the play button is there
   };
 
+  game.start = function () {
+    game.activity.stop = false;
+    game.activity.start = true;
+  };
+
+  game.pause = function () {
+    game.activity.start = false;
+  };
+
+  game.stop = function () {
+    game.activity.stop = true;
+    game.activity.start = false;
+  };
+
 	//this is a constructor function
 	var StackObject = function (core, operation, arguments) {
 		this.ops = operation || null;
