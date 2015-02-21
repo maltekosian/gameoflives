@@ -9,16 +9,26 @@
   game.const.GAME_RESET_EVENT = 'gameReset';
   game.const.COLORS = ['red', 'green', 'purple', 'fuchsia'];
   // cores players
-  game.cores = [{
-    player: 'quartz',
-    color: 'blue'
+  game.cores = [
+    {
+    'player': 'quartz',
+      'color': 'blue'
+    },
+    {
+    'player': 1,
+    'color': 'red',
+    'pointer': 0
+    }, {
+    'player': 2,
+    'color': 'green',
+    'pointer': 0
   }];
 
   game.activity = {
     cycles : 0,
     playerInGame: {},
     stop: true,
-    start: false
+    start: false // TODO: change this if the play button is there
   };
 
   game.start = function () {
@@ -68,6 +78,7 @@
 		var i = core.pointer;
     //do somethig like call the opcode
     try {
+
       var command = game.stack[i].ops;
       game.opcodes[command].func.call(game.stack, i, game.stack[i].args);
     }
@@ -87,10 +98,7 @@
     if (Object.getOwnPropertyNames(game.activity.playersInGame).length <= 1) {
       game.activity.stop = true;
     }
-    core.pointer++;
-		if (core.pointer >= game.stack.length) {
-      core.pointer = 0;
-		}
+
 		//}
 	};
 
@@ -105,17 +113,25 @@
           // console.log(game.stack);
           game.foo = 'foo';
         }
-			  for (var core in game.cores) {
-          if (typeof game.cores[core].pointer !== 'undefined') {
-            game.interpreter(game.cores[core]);
+        for (var i in game.cores) {
+          if (typeof game.cores[i].pointer !== 'undefined') {
+            if (game.stack[game.cores[i].pointer].core == i) {
+              game.interpreter(game.cores[i]);
+            }
+            game.cores[i].pointer++;
+            if (game.cores[i].pointer >= game.stack.length) {
+              game.cores[i].pointer = 0;
+            }
           }
         }
       }
 		}
 		game.update = !game.update;
 		//this is 30 of possible 60 fps
-		requestAnimationFrame(game.updateLoop);
-	};
+    requestAnimationFrame(function () {
+      game.updateLoop();
+    });
+  };
 
 	game.draw = function () {
 		//draw the canvas here
@@ -141,7 +157,7 @@
           if (j * game.sizeX + i == core.pointer) {
             //
             ctx.strokeStyle = '#f9o';
-            ctx.fillStyle = 'rgba(255,255,0,0.5)';
+            ctx.fillStyle = core.color == 'red' ? 'rgba(255,255,0,0.5)' : 'rgba(0,255,255,0.5)';
             ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
             ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
           }
@@ -175,7 +191,16 @@
 			game.stack.push(new StackObject(0, 'NOOP'));
 		}
 
-    requestAnimationFrame(game.updateLoop);
+    game.stack[15] = new  StackObject(1, 'MOV', [4, 3]);
+    game.stack[16] = new StackObject(1, 'NOP');
+    game.stack[17] = new  StackObject(1, 'NOP');
+    game.stack[18] = new  StackObject(1, 'NOP');
+    game.stack[20] = new  StackObject(2, 'MOV', [+2, 1]);
+
+
+    requestAnimationFrame(function () {
+			game.updateLoop();
+		});
 	};
 
 

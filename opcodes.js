@@ -26,10 +26,17 @@
       func: function (counter, args) {
         // one argument, positive or negative steps, positive right, negative left
         var cell = this[counter];
-        var newPosition = counter + args[0];
-        var pos = calculatePosition(this, game.cores[cell.core].pointer, args[0]);
-        this[pos] = this[counter];
-        this[counter] = new StackObject(0, 'NOOP');
+        var pos = args[0] || 0;
+        var cells = args[1] || 0;
+        var npos = cells < 0 ? calculatePosition(this, game.cores[cell.core].pointer, cells) : game.cores[cell.core].pointer;
+        var bucket = [];
+        for (var i = 0; i <= Math.abs(cells); i++) {
+          bucket.push(this[calculatePosition(this, npos, i)]);
+          this[calculatePosition(this, npos, i)] = new StackObject(0, 'NOOP');
+        }
+        for (var i = 0; i < bucket.length; i++) {
+          this[calculatePosition(this, npos, i + pos)] = bucket[i];
+        }
       },
       pseudo: 'MOV pos cells'
     },'COPY':{
