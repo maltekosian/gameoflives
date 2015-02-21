@@ -22,8 +22,24 @@
       this.args = [];
     };
 
-    game.opcodes = [{opcode: '', func: function() {}} ];
-    
+    game.opcodes = [
+			{opcode: '', func: function() {}},
+			{
+				opscode: 'MOV', 'func': function() {
+
+			  }
+			}];
+
+
+		game.opscodes = {
+			'MOV': function() {},
+			'PUSH': function() {}
+		}
+
+		game.opscodes['BLUBB'] = function() {
+			console.log('this is new');
+		}
+
     game.callOpCode = function(ops, args) {
       for (var i = 0; i < game.opcodes.length; i++) {
         if (game.opcodes[i].opcode == ops) {
@@ -33,7 +49,7 @@
     };
 
     game.stackCounter = 0;
-    
+
     game.update = true;
 
     game.interpreter = function() {
@@ -44,8 +60,8 @@
           //do somethig like call the opcode
           try {
             game[game.stack[i].ops](game.stack[i].args);
-            //or 
-            //game.callOpCode(game.stack[i].ops, game.stack[i].args);  
+            //or
+            //game.callOpCode(game.stack[i].ops, game.stack[i].args);
           }
           catch (ex) {
           }
@@ -62,7 +78,7 @@
         game.draw();
       } else {
         game.interpreter();
-      } 
+      }
       game.update = !game.update;
       //this is 30 of possible 60 fps
       requestAnimationFrame( function() {game.updateLoop();} );
@@ -80,7 +96,7 @@
           if (i * game.sizeY + j == game.stackCounter) {
             //
             ctx.strokeStyle = '#fd9';
-            ctx.fillStyle = '#6d9';            
+            ctx.fillStyle = '#6d9';
           }
           ctx.fillRect((cw/12+cw)*i,(cw/12+cw)*j,cw,cw);
           ctx.strokeRect((cw/12+cw)*i,(cw/12+cw)*j,cw,cw);
