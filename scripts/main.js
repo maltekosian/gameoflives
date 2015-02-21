@@ -7,22 +7,16 @@
   game.const = {};
   game.const.NEW_PLAYER_EVENT = 'newPlayer';
   game.const.GAME_RESET_EVENT = 'gameReset';
-  game.const.COLORS = ['red', 'green', 'purple', 'fuchsia'];
+  game.const.COLORS = [[], ['red','rgba(255,100,100,0.5)'], ['green','rgba(100,255,100,0.5)'], ['blue','rgba(100,100,255,0.5)'], ['yellow','rgba(255,255,100,0.5)']];
   // cores players
   game.cores = [
     {
-    'player': 'quartz',
-      'color': 'blue'
-    },
-    {
-    'player': 1,
-    'color': 'red',
-    'pointer': 0
-    }, {
-    'player': 2,
-    'color': 'green',
-    'pointer': 0
-  }];
+      'player': 'quartz',
+      'color': 'white',
+      'pColor': 'black'
+
+    }
+  ];
 
   game.activity = {
     ticks : 0,
@@ -60,7 +54,8 @@
     game.cores.push({
       id: core.id,
       player: 'Core ' + core.id,
-      color: game.const.COLORS[len],
+      color: game.const.COLORS[len][0],
+      pColor: game.const.COLORS[len][1],
       pointer: 0
     });
   };
@@ -165,7 +160,7 @@
           if (j * game.sizeX + i == core.pointer) {
             //
             ctx.strokeStyle = '#f9o';
-            ctx.fillStyle = core.color == 'red' ? 'rgba(255,255,0,0.5)' : 'rgba(0,255,255,0.5)';
+            ctx.fillStyle = core.pColor;
             ctx.fillRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
             ctx.strokeRect((cw / 12 + cw) * i, (cw / 12 + cw) * j, cw, cw);
           }
