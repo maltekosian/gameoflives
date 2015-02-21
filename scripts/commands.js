@@ -45,7 +45,14 @@
     PubSub.publish(game.const.GAME_RESET_EVENT);
   }
 
+  function initGame() {
+    if(!game.activity.pause) {
+      toggleGame.call(playBtn);
+    }
+    game.init();
+  }
+
   playBtn.addEventListener('click', toggleGame, false);
-  resetBtn.addEventListener('click', stopGame, false);
+  resetBtn.addEventListener('click', initGame, false);
 
 })(game, window, document);

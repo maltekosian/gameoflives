@@ -10,12 +10,7 @@
   game.const.COLORS = [[], ['red','rgba(255,100,100,0.5)'], ['green','rgba(100,255,100,0.5)'], ['blue','rgba(100,100,255,0.5)'], ['yellow','rgba(255,255,100,0.5)']];
   // cores players
   game.cores = [
-    {
-      'player': 'quartz',
-      'color': 'white',
-      'pColor': 'black'
 
-    }
   ];
 
   game.activity = {
@@ -173,23 +168,38 @@
 			}
 		}
 	};
+
 	game.init = function () {
-		body = document.getElementById('game') || document.body;
-    var canvas = document.createElement('canvas');
-		canvas.width = body.offsetWidth || window.innerWidth;
-		canvas.height = body.offsetHeight || window.innerHeight;
-		canvas.style.width = canvas.width + 'px';
-		canvas.style.height = canvas.height + 'px';
-		game.ctx = canvas.getContext('2d');
-		game.canvas = canvas;
-		body.style.overflow = 'hidden';
-		body.style.margin = 0;
-		body.appendChild(game.canvas);
+    if (game.canvas == null) {
+      body = document.getElementById('game') || document.body;
+      var canvas = document.createElement('canvas');
+      canvas.width = body.offsetWidth || window.innerWidth;
+      canvas.height = body.offsetHeight || window.innerHeight;
+      canvas.style.width = canvas.width + 'px';
+      canvas.style.height = canvas.height + 'px';
+      game.ctx = canvas.getContext('2d');
+      game.canvas = canvas;
+      body.style.overflow = 'hidden';
+      body.style.margin = 0;
+      body.appendChild(game.canvas);
+    }
 		//need two text areas and help/docu
 		game.sizeX = 10;
 		game.sizeY = 10;
 
-		for (var i = 0; i < (game.sizeX * game.sizeY); i++) {
+    game.activity.stop = false;
+    game.activity.start = false;
+    game.activity.pause = false;
+
+    game.cores  = [    {
+      'player': 'quartz',
+      'color': 'white',
+      'pColor': 'black'
+
+    }];
+    game.stack=[];
+
+    for (var i = 0; i < (game.sizeX * game.sizeY); i++) {
 			game.stack.push(new StackObject(0, 'NOOP'));
 		}
 
