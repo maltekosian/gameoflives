@@ -11,10 +11,10 @@
   function addNewPlayer(evnt, count) {
     var newPlayer = doc.createElement('p'),
         last;
-    players = doc.querySelectorAll('.js-player-count');
     newPlayer.innerHTML = 'Player ' + count + ': <span class="js-player-count" id="player-count-' + count + '">&ndash;</span>';
     last = players[players.length - 1];
     last.parentNode.appendChild(newPlayer);
+    players = doc.querySelectorAll('.js-player-count');
   }
 
   // Reset Cycle-count & Player score
