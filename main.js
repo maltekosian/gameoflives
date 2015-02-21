@@ -79,12 +79,12 @@
 		}
 	};
 	game.init = function () {
-		body = document.getElementById('game');
+		body = document.getElementById('game') || document.body;
     var canvas = document.createElement('canvas');
-		canvas.width = body.offsetWidth;
-		canvas.height = body.offsetHeight;
-		canvas.style.width = body.offsetWidth + 'px';
-		canvas.style.height = body.offsetHeight + 'px';
+		canvas.width = body.offsetWidth || window.innerWidth;
+		canvas.height = body.offsetHeight || window.innerHeight;
+		canvas.style.width = canvas.width + 'px';
+		canvas.style.height = canvas.height + 'px';
 		game.ctx = canvas.getContext('2d');
 		game.canvas = canvas;
 		body.style.overflow = 'hidden';
