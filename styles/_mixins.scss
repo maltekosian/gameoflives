@@ -3,3 +3,8 @@
   -webkit-transition: $values;
   transition: $values;
 }
+
+@mixin user-select ($val: none) {
+  -webkit-user-select: $val;
+  user-select: $val;
+}

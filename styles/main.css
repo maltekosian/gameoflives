@@ -330,6 +330,13 @@ body {
   font: normal 1rem/1.2 sans-serif;
   overflow: hidden; }
 
+h1 {
+  font-size: 1.125rem;
+  font-weight: normal; }
+
+p {
+  font-size: 0.875rem; }
+
 .wrap {
   position: fixed;
   top: 0;
@@ -350,6 +357,7 @@ body {
 .wrap__bottom {
   bottom: 0;
   height: 35%;
+  padding-right: 12.5rem;
   background-color: black;
   border: 2px solid black;
   box-sizing: border-box; }
@@ -365,12 +373,14 @@ body {
   overflow: hidden; }
 
 .tabs__nav {
-  height: 2em;
+  height: 2rem;
+  padding-left: 0.5rem;
   white-space: nowrap;
   border-bottom: 2px solid black; }
 
 .tabs__btn {
-  padding: 0 .5em;
+  padding: 0 0.625rem;
+  margin-right: 0.125rem;
   border: none;
   background: #666;
   color: black;
@@ -381,9 +391,77 @@ body {
   -webkit-transition: background-color .2s linear;
   transition: background-color .2s linear; }
   .tabs__btn:hover, .tabs__btn:focus, .tabs__btn.is-current {
-    background-color: #999; }
+    background-color: #999;
+    outline: none; }
 
 .tabs__pane {
-  display: none; }
+  padding: 0.625rem;
+  display: none;
+  color: #009a00;
+  font-size: 0.875rem; }
   .tabs__pane.is-current {
     display: block; }
+
+.controls {
+  width: 12.5rem;
+  position: absolute;
+  top: 2.625rem;
+  right: 0;
+  bottom: 0; }
+
+.controls__row {
+  margin-bottom: 0.625rem; }
+
+.controls__btn {
+  padding: 0.5rem 1.25rem 0 1.25rem;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  line-height: 1.6;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color .2s linear;
+  transition: background-color .2s linear; }
+  .controls__btn:hover, .controls__btn:focus {
+    outline: none; }
+
+.controls__btn--play {
+  background: red; }
+  .controls__btn--play.is-playing {
+    padding-top: 0.375rem;
+    padding-left: 1.0625rem;
+    padding-bottom: 0.125rem;
+    font-size: 0.75rem;
+    line-height: 2.1; }
+  .controls__btn--play:hover, .controls__btn--play:focus {
+    background-color: #d60000; }
+
+.controls__btn--reset {
+  padding-top: 0.375rem;
+  padding-bottom: 0.1875rem;
+  background-color: #009a00; }
+  .controls__btn--reset::before {
+    padding-right: 0.25rem;
+    content: '\00D7';
+    font-size: 1.5rem;
+    line-height: 1.04167; }
+  .controls__btn--reset:hover, .controls__btn--reset:focus {
+    background-color: #007b00; }
+
+.commands {
+  width: 100%;
+  max-width: 18.75rem;
+  position: absolute;
+  top: 2.125rem;
+  bottom: 0;
+  left: 0.5rem;
+  border: none;
+  background-color: #DDD;
+  color: #AAA;
+  resize: none;
+  -webkit-transition: all .2s linear;
+  transition: all .2s linear; }
+  .commands:focus {
+    background-color: white;
+    color: #666;
+    outline: none; }

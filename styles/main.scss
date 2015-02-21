@@ -2,9 +2,12 @@
 @import "../node_modules/normalize.scss/normalize";
 
 @import "functions",
+        "variables",
         "mixins";
 
 @import "base",
         "wrap",
         "game",
-        "tabs";
+        "tabs",
+        "controls",
+        "commands";

@@ -1,0 +1,65 @@
+
+.controls {
+  width: rem(200);
+  position: absolute;
+  top: rem(42);
+  right: 0;
+  bottom: 0;
+}
+
+.controls__row {
+  margin-bottom: rem(10);
+}
+
+.controls__btn {
+  padding: rem(8) rem(20) 0 rem(20);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  line-height: 1.6;
+  @include user-select (none);
+  @include transition (background-color .2s linear);
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.controls__btn--play {
+  background: red;
+
+  &.is-playing {
+    padding-top: rem(6);
+    padding-left: rem(17);
+    padding-bottom: rem(2);
+    font-size: rem(12);
+    line-height: 2.1;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: darken(red, 8%);
+  }
+
+}
+
+.controls__btn--reset {
+  padding-top: rem(6);
+  padding-bottom: rem(3);
+  background-color: $green;
+
+  &::before {
+    padding-right: rem(4);
+    content: '\00D7';
+    font-size: rem(24);
+    line-height: #{(25/24)};
+  }
+
+  &:hover,
+  &:focus {
+    background-color: darken($green, 6%);
+  }
+
+}

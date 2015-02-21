@@ -4,32 +4,37 @@
 }
 
 .tabs__nav {
-  height: 2em;
+  height: rem(32);
+  padding-left: rem(8);
   white-space: nowrap;
   border-bottom: 2px solid black;
 }
 
 .tabs__btn {
-  padding: 0 .5em;
+  padding: 0 rem(10);
+  margin-right: rem(2);
   border: none;
   background: #666;
   color: black;
   line-height: 2;
   cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
+  @include user-select (none);
   @include transition (background-color .2s linear);
 
   &:hover,
   &:focus,
   &.is-current {
     background-color: #999;
+    outline: none;
   }
 
 }
 
 .tabs__pane {
+  padding: rem(10);
   display: none;
+  color: $green;
+  font-size: rem(14);
 
   &.is-current {
     display: block;
