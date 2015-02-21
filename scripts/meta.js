@@ -30,7 +30,10 @@
 
   function updatePlayer(evnt, args) {
     if ( args.length === 2 ) {
-      document.getElementById('player-count-' + args[0]).textContent = args[1];
+      var elem = document.getElementById('player-count-' + args[0]);
+      if (elem) {
+        elem.textContent = args[1];
+      }
     }
   }
 
