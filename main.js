@@ -20,8 +20,8 @@
   game.activity = {
     cycles : 0,
     playerInGame: {},
-    stop: false,
-    start: true // TODO: change this if the play button is there
+    stop: true,
+    start: false // TODO: change this if the play button is there
   };
 
 	//this is a constructor function
@@ -35,6 +35,20 @@
 	game.stackCounter = 0;
 
 	game.update = true;
+
+  game.start = function () {
+    game.activity.stop = false;
+    game.activity.start = true;
+  };
+
+  game.pause = function () {
+    game.activity.start = false;
+  };
+
+  game.stop = function () {
+    game.activity.stop = true;
+    game.activity.start = false;
+  };
 
 	game.interpreter = function () {
 		//loop

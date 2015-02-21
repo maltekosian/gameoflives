@@ -6,17 +6,15 @@
   var PLAY = '\u25B6';
   var PAUSE = '\u2590\u2590';
 
-  var isPlaying = false;
-
   var forEach = Array.prototype.forEach.call.bind(Array.prototype.forEach);
   var playBtn = doc.getElementById('play');
 
   function toggleGame() {
     var contents;
-    isPlaying = !isPlaying;
-    this.textContent = isPlaying ? PAUSE : PLAY;
-    this.classList[isPlaying ? 'add' : 'remove']('is-playing');
-    if ( !isPlaying ) {
+    this.textContent = !game.activity.start ? PAUSE : PLAY;
+    this.classList[!game.activity.start ? 'add' : 'remove']('is-playing');
+    if ( game.activity.start ) {
+      game.pause();
       return;
     }
     contents = [];
@@ -26,6 +24,7 @@
         commands: txt.value.trim()
       });
     });
+    game.start();
     console.log(contents);
   }
 

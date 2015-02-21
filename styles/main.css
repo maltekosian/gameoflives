@@ -345,6 +345,7 @@ p {
   left: 0; }
 
 .wrap__top, .wrap__bottom {
+  padding-right: 12.5rem;
   position: absolute;
   right: 0;
   left: 0; }
@@ -357,7 +358,6 @@ p {
 .wrap__bottom {
   bottom: 0;
   height: 35%;
-  padding-right: 12.5rem;
   background-color: black;
   border: 2px solid black;
   box-sizing: border-box; }
@@ -365,9 +365,18 @@ p {
 .game {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 12.5rem;
   bottom: 0;
   left: 0; }
+
+.meta {
+  width: 11.25rem;
+  padding: 0 0.625rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  color: #009a00; }
 
 .tabs {
   overflow: hidden; }

@@ -4,6 +4,7 @@
   'use strict';
 
   var CURRENT_CLASS = 'is-current';
+  var NEW_PLAYER_EVENT = 'newPlayer';
 
   var forEach = Array.prototype.forEach.call.bind(Array.prototype.forEach);
 
@@ -40,6 +41,7 @@
       class="commands js-commands" \
       placeholder="Player ' + newCount + ', insert your commands &hellip;"></textarea>';
     tabsContent.appendChild(pane);
+    PubSub.publish(NEW_PLAYER_EVENT, newCount);
   }
 
   forEach(tabs.querySelectorAll('button[rel]'), function (btn) {

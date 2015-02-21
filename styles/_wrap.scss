@@ -9,6 +9,7 @@
 
 .wrap__top,
 .wrap__bottom {
+  padding-right: rem(200);
   position: absolute;
   right: 0;
   left: 0;
@@ -23,7 +24,6 @@
 .wrap__bottom {
   bottom: 0;
   height: 35%;
-  padding-right: rem(200);
   background-color: black;
   border: 2px solid black;
   box-sizing: border-box;
