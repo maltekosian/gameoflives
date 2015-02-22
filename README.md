@@ -30,5 +30,9 @@ The goal is to eliminate the other player's program.
 * Ops-Commands (Command -> JSFunction)
 
 
+## Spendings
+![](https://raw.githubusercontent.com/maltekosian/gameoflives/master/docs/spendings.jpg)
+
+
 ## License
 Do what you want.
